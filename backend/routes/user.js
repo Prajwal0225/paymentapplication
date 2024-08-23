@@ -5,6 +5,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const {JWT_SECRET} = require("../config");
+const {authMiddleware} = require("../middleware")
+
 
 mongoose.connect("mongodb+srv://prajwalsomalkar025:VYZuWElRSGQ0r9wd@clustercohort.bednah4.mongodb.net/paymentapplication");
 
@@ -90,6 +92,33 @@ router.post("/signin",async(req,res)=>{
 }
 
 })
+
+
+const updateBody = z.object({
+    password: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+})
+
+router.put("/",authMiddleware, async(req,res)=>{
+   
+    const {success} = updateBody.safeParse(req.body);
+    console.log(success);
+    if(!success){
+        res.status(411).json({
+            message: "Error while updating information"
+        })
+    }else{
+    const id = req.userId;
+    console.log(id);
+    const u = await User.findOneAndUpdate({_id:id},req.body);
+        console.log(u);
+   res.json({
+    message:"Updated sucessfully"
+   })
+}
+})
+
 
 // app.put("/signin",(req,res)=>{
 //     res.send("Hello from update");
