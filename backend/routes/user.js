@@ -1,6 +1,6 @@
 const express = require("express");
 const z = require("zod");
-const {User} = require("../db")
+const {User, Account} = require("../db")
 const router = express.Router();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -37,6 +37,12 @@ router.post("/signup",async(req,res)=>{
             user1.save();
 
             const userId = user1._id;
+            const Account1 = await new Account({
+                userId: userId,
+                balance: 1 + Math.random() * 10000
+            }) 
+
+            Account1.save();
             const token = jwt.sign(
                 { 
                     userId
@@ -120,14 +126,14 @@ router.put("/",authMiddleware, async(req,res)=>{
 })
 
 
-// app.put("/signin",(req,res)=>{
-//     res.send("Hello from update");
-// })
-
-// app.post("/update",(req,res)=>{
-//     res.send("Hello from update");
-// })
-
+router.get("/getall",async (req,res)=>{
+    const data = await User.find({});
+    res.json({
+        data
+    })
+})
 
 
 module.exports = router;
+
+
