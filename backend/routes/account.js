@@ -37,8 +37,7 @@ router.post("/transfer",authMiddleware,async(req,res)=>{
             res.status(400).json({
                 message: "Invalid account"
             })
-        }else{
-            await 
+        }else{ 
         await Account.updateOne({
             userId: req.userId
         },{

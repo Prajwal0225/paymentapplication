@@ -17,10 +17,7 @@ function Desktop() {
     <p className='font-medium text-xl mt-5 mb-10 ml-3'>Your Balance $5000</p>
     
 
-    <h2 className='font-bold text-xl underline ml-3'>Users</h2>
-<div className='px-3'>
-    <input type='search' className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 w-full mt-5 mb-10" placeholder='Search Users...'/>
-</div>
+
 
 <UserBox/>
    
