@@ -8,13 +8,22 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import HomePage from './Pages/homePage';
 function App() {
+
+let flag = false;
+const tokenisPresent = localStorage.getItem("token");
+
+if(tokenisPresent !== null){
+  flag = true;
+}
 
   return (
     <>
     <BrowserRouter>
       <Routes>
-      <Route path="/signup" element={<SignUp />} />
+        <Route path='/' element={flag? <Desktop/>:<HomePage/>}/>
+        <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/dashboard" element={<Desktop />} />
           <Route path="/send" element={<SendMoney />} />

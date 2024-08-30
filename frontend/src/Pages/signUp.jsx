@@ -51,7 +51,7 @@ function SignUp() {
             console.log(response);
         }} buttontype="Sign Up"/>
 
-       <FormRedirect text="Already have account?" redirectto="Sign In"/>
+       <FormRedirect text="Already have account?" redirectto="signin"/>
         </FormBox>
        
     </>

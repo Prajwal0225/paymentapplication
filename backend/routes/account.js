@@ -10,10 +10,13 @@ router.get("/balance",authMiddleware,async(req,res)=>{
     const account = await Account.findOne({
         userId: req.userId
     })
+    
     res.json({
         balance: account.balance
     })
 })
+
+
 
 router.post("/transfer",authMiddleware,async(req,res)=>{
 
@@ -63,11 +66,5 @@ router.post("/transfer",authMiddleware,async(req,res)=>{
 })
 
 
-router.get("/all",async(req,res)=>{
-    const data = await Account.find({});
-    res.json({
-        data
-    })
-})
 
 module.exports = router;

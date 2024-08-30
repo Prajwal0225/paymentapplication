@@ -32,7 +32,11 @@ function SendMoney() {
                                 Authorization: "Bearer " + localStorage.getItem("token")
                             }
                         })
-                        navigate("/dashboard")
+                        console.log(response)
+                        // navigate("/dashboard")
+                        if(response.statusText="OK"){
+                          navigate("/dashboard")
+                        }
     }} className="w-full mt-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 font-medium rounded-lg text-sm py-2.5  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-700 dark:border-green-700">Initiate Transfer</button>
       </FormBox>
 

@@ -51,7 +51,7 @@ router.post("/signup",async(req,res)=>{
             
             const alldata = await User.find({});
             console.log(alldata);
-            res.status("200").json(
+            res.status(200).json(
                 {
                     message: "User created successfully",
                     token: token
@@ -76,9 +76,10 @@ router.post("/signin",async(req,res)=>{
     if(success){
 
     const {username,password} = req.body;
-    const findUser = await User.findOne({username: username,password:password});
+
+    const findUser = await User.findOne({username: username, password:password});
     if(!findUser){
-        res.status("411").json({
+        res.status(411).json({
             message:'Error hile logging in / User not exits in the db'
         })
     }else{
@@ -87,7 +88,7 @@ router.post("/signin",async(req,res)=>{
         userId: findUser._id
     },JWT_SECRET)
 
-    res.status("200").json({
+    res.status(200).json({
         token: token
     })
 }
@@ -96,34 +97,39 @@ router.post("/signin",async(req,res)=>{
         message: "Email already taken / Incorrect inputs"
     })
 }
-
 })
 
+//------------------------------------------------------
+//Update data
+//------------------------------------------------------
 
-const updateBody = z.object({
-    password: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
-})
+// const updateBody = z.object({
+//     password: z.string(),
+//     firstName: z.string(),
+//     lastName: z.string(),
+// })
 
-router.put("/",authMiddleware, async(req,res)=>{
+// router.put("/",authMiddleware, async(req,res)=>{
    
-    const {success} = updateBody.safeParse(req.body);
-    console.log(success);
-    if(!success){
-        res.status(411).json({
-            message: "Error while updating information"
-        })
-    }else{
-    const id = req.userId;
-    console.log(id);
-    const u = await User.findOneAndUpdate({_id:id},req.body);
-        console.log(u);
-   res.json({
-    message:"Updated sucessfully"
-   })
-}
-})
+//     const {success} = updateBody.safeParse(req.body);
+//     console.log(success);
+//     if(!success){
+//         res.status(411).json({
+//             message: "Error while updating information"
+//         })
+//     }else{
+//     const id = req.userId;
+//     console.log(id);
+//     const u = await User.findOneAndUpdate({_id:id},req.body);
+//         console.log(u);
+//    res.json({
+//     message:"Updated sucessfully"
+//    })
+// }
+// })
+
+//------------------------------------------------------
+
 
 router.get("/bulk", async (req, res) => {
     const filter = req.query.filter || "";
@@ -147,6 +153,17 @@ router.get("/bulk", async (req, res) => {
             lastName: user.lastName,
             _id: user._id
         }))
+    })
+})
+
+
+router.get("/username",authMiddleware,async(req,res)=>{
+    const user = await User.findOne({
+        _id: req.userId
+    })
+
+    res.json({
+        firstName: user.firstName
     })
 })
 

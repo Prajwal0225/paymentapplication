@@ -21,14 +21,14 @@ function SignIn() {
         <InputField onChange={e=>setPassword(e.target.value)} fieldname="Password" placeholder ="John"/>
         
         <FormButton onClick={async()=>{
-          const response = await axios.post("http://localhost:80/api/v1/signin",{
+          const response = await axios.post("http://localhost:80/api/v1/user/signin",{
             username,
             password
           })
           localStorage.setItem("token", response.data.token);
           navigate('/dashboard')
-        }} buttontype="Sign Up"/>
-        <FormRedirect text="Don't Have an sccount?" redirectto="Sign Up"/>
+        }} buttontype="Sign In"/>
+        <FormRedirect text="Don't Have an sccount?" redirectto="signup"/>
         </FormBox>     
     </>
   )
