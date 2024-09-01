@@ -11,7 +11,7 @@ function Desktop() {
     const fetchbalance =async()=>{
       const response = await axios.get("http://localhost:80/api/v1/account/balance",{
           headers: {
-            authorization: "Bearer " + localStorage.getItem("token")
+            authorization: localStorage.getItem("token")
           }
       })
       setBalance(response.data.balance);
@@ -24,7 +24,7 @@ function Desktop() {
     const fetchName = async()=>{
       const response = await axios.get("http://localhost:80/api/v1/user/username",{
           headers: {
-            authorization: "Bearer " + localStorage.getItem("token")
+            authorization: localStorage.getItem("token")
           }
       })
       setUsername(response.data.firstName);

@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const {JWT_SECRET} = require("../config");
 const {authMiddleware} = require("../middleware")
+require('dotenv').config();
 
-
-mongoose.connect("mongodb+srv://prajwalsomalkar025:VYZuWElRSGQ0r9wd@clustercohort.bednah4.mongodb.net/paymentapplication");
+mongoose.connect(process.env.Mongodb_url);
 
 const mySchema = z.object({
     username: z.string(),
@@ -131,10 +131,12 @@ router.post("/signin",async(req,res)=>{
 //------------------------------------------------------
 
 
-router.get("/bulk", async (req, res) => {
+router.get("/bulk",authMiddleware, async (req, res) => {
     const filter = req.query.filter || "";
+    const userIdToExclude = new mongoose.Types.ObjectId(req.userId);
 
     const users = await User.find({
+        _id: { $ne: userIdToExclude },
         $or: [{
             firstName: {
                 "$regex": filter
@@ -145,6 +147,8 @@ router.get("/bulk", async (req, res) => {
             }
         }]
     })
+
+    
 
     res.json({
         user: users.map(user => ({

@@ -29,7 +29,7 @@ function SendMoney() {
         to: id
       },{
                             headers: {
-                                Authorization: "Bearer " + localStorage.getItem("token")
+                                Authorization: localStorage.getItem("token")
                             }
                         })
                         console.log(response)

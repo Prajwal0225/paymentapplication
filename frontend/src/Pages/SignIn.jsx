@@ -25,7 +25,7 @@ function SignIn() {
             username,
             password
           })
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("token", "Bearer " + response.data.token);
           navigate('/dashboard')
         }} buttontype="Sign In"/>
         <FormRedirect text="Don't Have an sccount?" redirectto="signup"/>

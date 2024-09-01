@@ -3,7 +3,7 @@ const rootRouter = require("./routes/index");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const port = 80;
-
+require('dotenv').config();
 
 
 const app = express();
@@ -15,7 +15,7 @@ app.use("/api/v1",rootRouter);
 
 
 
-mongoose.connect("mongodb+srv://prajwalsomalkar025:VYZuWElRSGQ0r9wd@clustercohort.bednah4.mongodb.net/paymentapplication");
+mongoose.connect(process.env.Mongodb_url);
 
 
 app.listen({port},()=>{

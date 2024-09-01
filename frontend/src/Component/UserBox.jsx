@@ -9,10 +9,15 @@ function UserBox() {
   const [filter,setfilter] = useState("");
 
   useEffect(()=>{
-    axios.get("http://localhost:80/api/v1/user/bulk?filter="+filter)
+    axios.get("http://localhost:80/api/v1/user/bulk?filter="+filter,{
+      headers: {
+      Authorization: localStorage.getItem("token")
+  }
+})
     .then(response=>{
       setUsers(response.data.user)
     })
+    
   },[filter])
 
   return (
